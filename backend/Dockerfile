@@ -4,11 +4,11 @@ FROM gradle:8.1.1-jdk21 AS build
 ENV GRADLE_USER_HOME=/home/gradle/.gradle
 WORKDIR /app
 
-# Only copy files necessary for dependency resolution first
+# Copy necessary files
 COPY build.gradle settings.gradle /app/
 COPY src /app/src
 
-# Build without tests and no Gradle daemon
+# Build the project with Java 21
 RUN gradle build -x test --no-daemon
 
 # ----------- Stage 2: Run -------------
